@@ -12,4 +12,6 @@ class Headers {
         std::string get(std::string key);
 
         std::string to_string();
+
+        static std::string get_date_formatted();
 };

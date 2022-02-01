@@ -1,11 +1,18 @@
-#include <libfasthttpserver/parsers/requestparser/requestparser.h>
+#include <libfasthttpserver/server/server.h>
 
 #include <string>
 #include <iostream>
 
 int main() {
     // Test http request string
-    std::string request = "GET / HTTP/1.1\r\nSome-Header: Some-Value\r\nAnother-Header: some,more,values\r\n\r\n";
+    HTTPServer server(8080);
+
+    server.start();
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+    
+    std::cout << "Stopping server" << std::endl;
+    server.stop();
 
 
     return 0;
