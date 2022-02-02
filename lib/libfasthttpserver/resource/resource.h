@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include <libfasthttpserver/resource/classes/request.h>
-#include <libfasthttpserver/resource/classes/response.h>
+#include <libfasthttpserver/http/request/request.h>
+#include <libfasthttpserver/http/response/response.h>
 #include <libfasthttpserver/http/methods/methods.h>
 
 

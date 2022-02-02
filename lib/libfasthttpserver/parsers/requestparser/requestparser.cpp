@@ -1,5 +1,5 @@
 #include "requestparser.h"
-#include "resource/classes/request.h"
+#include "http/request/request.h"
 
 #include <string>
 #include <sstream>

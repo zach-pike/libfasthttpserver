@@ -4,8 +4,8 @@
 #include <map>
 #include <memory>
 
-#include <libfasthttpserver/resource/classes/response.h>
-#include <libfasthttpserver/resource/classes/request.h>
+#include <libfasthttpserver/http/response/response.h>
+#include <libfasthttpserver/http/request/request.h>
 #include <libfasthttpserver/http/headers/headers.h>
 #include <libfasthttpserver/resource/resource.h>
 

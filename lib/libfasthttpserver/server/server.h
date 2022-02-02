@@ -4,7 +4,7 @@
 #include <thread>
 #include <atomic>
 
-#include <libfasthttpserver/resourcehandler/resourcehandler.h>
+#include <libfasthttpserver/resource/resourcehandler/resourcehandler.h>
 
 class HTTPServer {
     private:

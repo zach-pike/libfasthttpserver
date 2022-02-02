@@ -1,6 +1,6 @@
 #include "resourcehandler.h"
-#include "resource/classes/request.h"
-#include "resource/classes/response.h"
+#include "http/request/request.h"
+#include "http/response/response.h"
 #include "http/methods/methods.h"
 
 // Add resource handler to the server
