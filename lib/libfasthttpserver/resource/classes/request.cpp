@@ -1,7 +1,8 @@
 #include "request.h"
+#include "http/methods/methods.h"
 
 // Request constructor
-Request::Request(buffer_t body, std::string method, std::string path, Headers headers, std::string version) {
+Request::Request(buffer_t body, HTTP::Methods::Method method, std::string path, HTTP::Headers headers, std::string version) {
     this->body = body;
     this->method = method;
     this->path = path;

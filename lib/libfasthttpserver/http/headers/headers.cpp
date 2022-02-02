@@ -3,17 +3,17 @@
 #include <ctime>
 
 // Headers set method
-void Headers::set(std::string key, std::string value) {
+void HTTP::Headers::set(std::string key, std::string value) {
     headers[key] = value;
 }
 
 // Headers get method
-std::string Headers::get(std::string key) const {
+std::string HTTP::Headers::get(std::string key) const {
     return headers.at(key);
 }
 
 // Headers to_string method
-std::string Headers::to_string() {
+std::string HTTP::Headers::to_string() {
     std::string result = "";
 
     for (auto it = headers.begin(); it != headers.end(); ++it) {
@@ -25,7 +25,7 @@ std::string Headers::to_string() {
     return result;
 }
 
-std::string Headers::get_date_formatted() {
+std::string HTTP::Headers::get_date_formatted() {
     std::time_t time;
     std::time(&time);
 

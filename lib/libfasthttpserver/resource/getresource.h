@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libfasthttpserver/resource/resource.h>
+#include <libfasthttpserver/HTTP/methods/methods.h>
 
 class GetResource : public Resource {
     public:
@@ -10,7 +11,7 @@ class GetResource : public Resource {
         // Returns the path of the resource
         virtual std::string getPath() const = 0;
         
-        virtual Method getMethod() const {
-            return Method::GET;
+        virtual HTTP::Methods::Method getMethod() const {
+            return HTTP::Methods::Method::GET;
         }
 };

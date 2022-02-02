@@ -1,8 +1,8 @@
 #include "server.h"
 #include "parsers/requestparser/requestparser.h"
-#include "common/responseline/responseline.h"
-#include "common/responseconstructor/responseconstructor.h"
-#include "common/headers/headers.h"
+#include "http/responseline/responseline.h"
+#include "http/responseconstructor/responseconstructor.h"
+#include "http/headers/headers.h"
 
 #include <iostream>
 
@@ -65,7 +65,7 @@ void HTTPServer::handler(socket_server* server, std::atomic_bool* running, Resou
 
             if (buf_str.find("\r\n\r\n") != std::string::npos) {
                 auto header = std::string{ (char*)buf_str.data(), buf_str.find("\r\n\r\n") };
-                auto parsed = RequestParser::parse_request(buffer_t{ header.begin(), header.end() });
+                auto parsed = Parsers::RequestParser::parse_request(buffer_t{ header.begin(), header.end() });
 
                 // Make sure that we parse the header and if we see a content-length header to hold off handling the request until we have the entire body
                 

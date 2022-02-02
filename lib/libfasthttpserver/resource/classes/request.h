@@ -2,15 +2,16 @@
 
 #include <string>
 
-#include <libfasthttpserver/common/headers/headers.h>
-#include <libtcpserver/socket/socket.h>
+#include "libfasthttpserver/http/headers/headers.h"
+#include "libtcpserver/socket/socket.h"
+#include "libfasthttpserver/http/methods/methods.h"
 
 struct Request {
     buffer_t body;
-    std::string method;
+    HTTP::Methods::Method method;
     std::string path;
-    Headers headers;
+    HTTP::Headers headers;
     std::string version;
 
-    Request(buffer_t body, std::string method, std::string path, Headers headers, std::string version);
+    Request(buffer_t body, HTTP::Methods::Method method, std::string path, HTTP::Headers headers, std::string version);
 };

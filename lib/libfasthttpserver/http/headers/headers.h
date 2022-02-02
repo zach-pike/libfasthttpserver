@@ -3,7 +3,8 @@
 #include <map>
 #include <string>
 
-class Headers {
+namespace HTTP {
+    class Headers {
     private:
         std::map<std::string, std::string> headers;
 
@@ -15,3 +16,4 @@ class Headers {
 
         static std::string get_date_formatted();
 };
+}

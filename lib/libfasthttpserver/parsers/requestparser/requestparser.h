@@ -3,11 +3,13 @@
 #include <vector>
 #include <string>
 
-#include <libfasthttpserver/common/headers/headers.h>
+#include <libfasthttpserver/http/headers/headers.h>
 #include <libfasthttpserver/resource/classes/request.h>
 
-class RequestParser {
-public:
+namespace Parsers {
+    class RequestParser {
+    public:
 
-    static Request parse_request(std::vector<uint8_t> request);
-};
+        static Request parse_request(buffer_t request);
+    };
+}

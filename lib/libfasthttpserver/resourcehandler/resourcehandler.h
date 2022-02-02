@@ -6,7 +6,7 @@
 
 #include <libfasthttpserver/resource/classes/response.h>
 #include <libfasthttpserver/resource/classes/request.h>
-#include <libfasthttpserver/common/headers/headers.h>
+#include <libfasthttpserver/http/headers/headers.h>
 #include <libfasthttpserver/resource/resource.h>
 
 class ResourceHandler {

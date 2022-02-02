@@ -1,8 +1,8 @@
 #include "responseconstructor.h"
 
 // ResponseConstructor construct_response method
-std::vector<uint8_t> ResponseConstructor::construct_response(ResponseLine response_line, Headers headers, std::vector<uint8_t> body) {
-    std::vector<uint8_t> result;
+buffer_t HTTP::ResponseConstructor::construct_response(ResponseLine response_line, Headers headers, std::vector<uint8_t> body) {
+    buffer_t result;
 
     auto response_line_string = response_line.to_string();
     auto headers_string = headers.to_string();

@@ -2,7 +2,8 @@
 
 #include <string>
 
-class ResponseLine {
+namespace HTTP {
+    class ResponseLine {
     private:
         std::string version;
         std::string status;
@@ -14,4 +15,5 @@ class ResponseLine {
         std::string get_reason();
 
         std::string to_string();
-};
+    };
+}

@@ -1,4 +1,5 @@
 #include "requestparser.h"
+#include "resource/classes/request.h"
 
 #include <string>
 #include <sstream>
@@ -25,7 +26,7 @@ std::vector<std::string> split_string_by_delim(std::string haystack, std::string
 
 
 // RequestParser parse request method
-Request RequestParser::parse_request(std::vector<uint8_t> request) {
+Request Parsers::RequestParser::parse_request(buffer_t request) {
     // Parse request line
     std::stringstream reqline;
 
@@ -48,7 +49,7 @@ Request RequestParser::parse_request(std::vector<uint8_t> request) {
 
     std::string headers_str = std::string{ request.begin(), request.end() }.substr(headers_begin, headers_end - headers_begin);
 
-    Headers reqheaders;
+    HTTP::Headers reqheaders;
 
     for (auto token : split_string_by_delim(headers_str, "\r\n")) {
         std::string name;
@@ -70,7 +71,9 @@ Request RequestParser::parse_request(std::vector<uint8_t> request) {
         reqheaders.set(name, value);
     }
 
-    Request req(buffer_t{}, method, path, reqheaders, version);
+    buffer_t body;
+
+    Request req(body, HTTP::Methods::getMethod(method), path, reqheaders, version);
 
     return req;
 }

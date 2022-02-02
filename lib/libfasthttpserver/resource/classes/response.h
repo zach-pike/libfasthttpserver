@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <libfasthttpserver/common/headers/headers.h>
+#include <libfasthttpserver/http/headers/headers.h>
 #include <libtcpserver/socket/socket.h>
 
 class Response {
@@ -10,9 +10,9 @@ private:
     std::string status_message = "OK";
     buffer_t body;
 public:    
-    Headers headers;
+    HTTP::Headers headers;
 
-    Response(Headers headers);
+    Response(HTTP::Headers headers);
 
     void setStatusCode(int status_code);
     void setStatusMessage(std::string status_message);
@@ -24,6 +24,5 @@ public:
 
     buffer_t to_buffer();
 
-    static Response Get404Response();
-    static Response Get405Response();
+    static Response GetStaticResponse(int code, std::string message, std::string body);
 };
