@@ -9,7 +9,7 @@ class Headers {
 
     public:
         void set(std::string key, std::string value);
-        std::string get(std::string key);
+        std::string get(std::string key) const;
 
         std::string to_string();
 

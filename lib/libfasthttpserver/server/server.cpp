@@ -28,7 +28,7 @@ void HTTPServer::start() {
     server_running = true;
 
     acceptor_thread = std::thread(acceptor, &server, &server_running);
-    handler_thread = std::thread(handler, &server, &server_running);
+    handler_thread = std::thread(handler, &server, &server_running, &resourceHandler);
 
 }
 
@@ -53,7 +53,7 @@ void HTTPServer::acceptor(socket_server* server, std::atomic_bool* running) {
     }
 }
 
-void HTTPServer::handler(socket_server* server, std::atomic_bool* running) {
+void HTTPServer::handler(socket_server* server, std::atomic_bool* running, ResourceHandler* resource_handler) {
     while (*running) {
 
         // To be implemented 
@@ -64,28 +64,13 @@ void HTTPServer::handler(socket_server* server, std::atomic_bool* running) {
 
             if (buf_str.find("\r\n\r\n") != std::string::npos) {
                 auto header = std::string{ (char*)buf_str.data(), buf_str.find("\r\n\r\n") };
-
                 auto parsed = RequestParser::parse_request(buffer_t{ header.begin(), header.end() });
 
-                std::cout << parsed.method << "\n";
+                // Pass the request to the resource handler
+                auto response = resource_handler->handleRequest(parsed);
 
-                Headers respheaders;
-                respheaders.set("Content-Type", "text/plain; charset=UTF-8");
-                respheaders.set("Connection", "close");
-                respheaders.set("Date", Headers::get_date_formatted());
-                respheaders.set("Content-Length", "12");
-
-                std::string msg = "Hello World!";
-
-                ResponseLine respline("HTTP/1.1", "200", "OK");
-
-                buffer_t response = ResponseConstructor::construct_response(respline, respheaders, buffer_t{ msg.begin(), msg.end() });
-
-                std::cout << std::string{ response.begin(), response.end() } << "\n";
-
-                if (parsed.method == "GET") {
-                    socket.send_buffer((const char*)response.data(), response.size());
-                }
+                // Send the response buffer
+                socket.send_buffer((const char*)response.data(), response.size());
 
                 buffer = buffer_t{};
             }

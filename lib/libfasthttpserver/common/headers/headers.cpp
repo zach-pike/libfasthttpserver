@@ -8,8 +8,8 @@ void Headers::set(std::string key, std::string value) {
 }
 
 // Headers get method
-std::string Headers::get(std::string key) {
-    return headers[key];
+std::string Headers::get(std::string key) const {
+    return headers.at(key);
 }
 
 // Headers to_string method

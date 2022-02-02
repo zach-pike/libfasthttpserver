@@ -25,9 +25,7 @@ std::vector<std::string> split_string_by_delim(std::string haystack, std::string
 
 
 // RequestParser parse request method
-RequestParser::Request RequestParser::parse_request(std::vector<uint8_t> request) {
-    Request result;
-
+Request RequestParser::parse_request(std::vector<uint8_t> request) {
     // Parse request line
     std::stringstream reqline;
 
@@ -72,11 +70,7 @@ RequestParser::Request RequestParser::parse_request(std::vector<uint8_t> request
         reqheaders.set(name, value);
     }
 
+    Request req(buffer_t{}, method, path, reqheaders, version);
 
-    result.headers = reqheaders;
-    result.method = method;
-    result.path = path;
-    result.version = version;
-
-    return result;
+    return req;
 }
