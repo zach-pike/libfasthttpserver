@@ -12,6 +12,8 @@ class HelloWorldResource : public GetResource {
             response.setStatusCode(200);
             response.headers.set("Content-Type", "text/html; charset=utf-8");
 
+            std::cout << "Connecton: " << request.headers.get("Connection") << std::endl;
+
             std::stringstream ss;
             ss << std::ifstream("test.html").rdbuf();
             response.setBody(buffer_t{ ss.str().begin(), ss.str().end() });

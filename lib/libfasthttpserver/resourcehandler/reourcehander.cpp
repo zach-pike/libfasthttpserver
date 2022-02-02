@@ -39,6 +39,7 @@ buffer_t ResourceHandler::handleRequest(Request& request) {
 
     // Set some pre headers
     headers.set("Date", Headers::get_date_formatted());
+    headers.set("Connection", "keep-alive");
 
     Response response(headers);
 

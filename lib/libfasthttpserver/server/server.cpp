@@ -49,12 +49,13 @@ void HTTPServer::stop() {
 void HTTPServer::acceptor(socket_server* server, std::atomic_bool* running) {
     while (*running) {
         server->accept_connections();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 }
 
 void HTTPServer::handler(socket_server* server, std::atomic_bool* running, ResourceHandler* resource_handler) {
     while (*running) {
+        std::map<int, buffer_t> buffers;
 
         // To be implemented 
         server->loop_over_clients([&](socket_client& socket) {
@@ -66,16 +67,19 @@ void HTTPServer::handler(socket_server* server, std::atomic_bool* running, Resou
                 auto header = std::string{ (char*)buf_str.data(), buf_str.find("\r\n\r\n") };
                 auto parsed = RequestParser::parse_request(buffer_t{ header.begin(), header.end() });
 
+                // Make sure that we parse the header and if we see a content-length header to hold off handling the request until we have the entire body
+                
+
                 // Pass the request to the resource handler
                 auto response = resource_handler->handleRequest(parsed);
 
                 // Send the response buffer
                 socket.send_buffer((const char*)response.data(), response.size());
 
-                buffer = buffer_t{};
+                buffer.clear();
             }
         });
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 }
