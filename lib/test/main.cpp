@@ -24,7 +24,6 @@ class HelloWorldResource : public GetResource {
 };
 
 int main() {
-    // Test http request string
     HTTPServer server(8080);
 
     auto resource = std::make_shared<HelloWorldResource>();
