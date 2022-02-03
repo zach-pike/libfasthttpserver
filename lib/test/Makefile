@@ -2,7 +2,7 @@ CC = g++
 
 .PHONY: build
 build:
-	$(CC) -o out.elf main.cpp -lfasthttpserver -ltcpserver -pthread -g
+	$(CC) -o out.elf main.cpp -lfasthttpserver -ltcpserver -pthread
 
 .PHONY: run
 run:

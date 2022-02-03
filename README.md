@@ -47,8 +47,15 @@ Makes a endpoint at http://localhost:8080/hello that will return "Hello World!"
 ---
 
 ## Installation
+You need to install [libtcpserver](https://github.com/zach-pike/libtcpserver)
+
 Just two commands:
 ```bash
 make build
 sudo make install
 ```
+
+## Building
+Building your server app is easy, let's say you server is `server.cpp`.
+
+`g++ -o out.elf server.cpp -lfasthttpserver -ltcpserver -pthread` 
