@@ -54,8 +54,7 @@ int main() {
 
     server.start();
 
-    int i;
-    std::cin >> i;
+    getchar();
     
     std::cout << "Stopping server" << std::endl;
     server.stop();
