@@ -25,6 +25,9 @@ class HTTPServer {
         HTTPServer(int port);
         ~HTTPServer();
 
+        // Start the http server
         void start();
+
+        // Stop the http server
         void stop();
 };

@@ -16,6 +16,9 @@ namespace HTTP::Methods {
         UNKNOWN
     };
 
+    // Convert a string to a Method enum
     Method getMethod(const std::string& method);
+
+    // Convert a Method enum to a string
     std::string getMethodString(Method method);
 }

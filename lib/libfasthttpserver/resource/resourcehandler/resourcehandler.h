@@ -16,6 +16,7 @@ class ResourceHandler {
             bool should_close_connection;
         };
 
+        // Add a resource to the handler
         void addResource(std::shared_ptr<Resource> resource);
 
         // Returns the rendered data for the request

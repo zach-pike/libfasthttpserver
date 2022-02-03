@@ -7,9 +7,7 @@
 #include <libfasthttpserver/http/responseline/responseline.h>
 #include <libtcpserver/socket/socket.h>
 
-namespace HTTP {
-    class ResponseConstructor {
-    public:
-        static buffer_t construct_response(ResponseLine response_line, Headers headers, std::vector<uint8_t> body);
-    };
+namespace HTTP::ResponseConstructor {
+    // Take a response line and headers and a body and construct a response
+    buffer_t construct_response(ResponseLine response_line, Headers headers, buffer_t body);
 }
