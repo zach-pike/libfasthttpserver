@@ -13,8 +13,10 @@ void ResourceHandler::addResource(std::shared_ptr<Resource> resource) {
 }
 
 // Handle the request
-buffer_t ResourceHandler::handleRequest(Request& request) {
+ResourceHandler::ResourceHandlerResult ResourceHandler::handleRequest(Request& request) {
     using namespace HTTP;
+
+    bool should_close_connection = false;
 
     // Get the path of the request
     std::string path = request.path;
@@ -22,7 +24,7 @@ buffer_t ResourceHandler::handleRequest(Request& request) {
     // Check if the resource exists
     if (resources.find(path) == resources.end()) {
         // Return a 404 response
-        return Response::GetStaticResponse(404, "Not Found", "404: Resource not found").to_buffer();
+        return ResourceHandlerResult{ Response::GetStaticResponse(404, "Not Found", "404: Resource not found").to_buffer(), true };
     }
 
     // Get the resource
@@ -34,21 +36,29 @@ buffer_t ResourceHandler::handleRequest(Request& request) {
     // Check if the method is correct
     if (method != request.method) {
         // Return a 405 response
-        return Response::GetStaticResponse(405, "Method Not Allowed", "405: Method not allowed").to_buffer();
+        return ResourceHandlerResult{ Response::GetStaticResponse(405, "Method Not Allowed", "405: Method not allowed").to_buffer(), true };
     }
 
     // Render the resource
     Headers headers;
-
-    // Set some pre headers
-    headers.set("Date", Headers::get_date_formatted());
-    headers.set("Connection", "keep-alive");
 
     Response response(headers);
 
     // Render the resource
     resource->render(request, response);
 
+    if (response.getStatusCode() > 299) {
+        should_close_connection = true;
+    }
+
+    // Set some pre headers
+    response.headers.set("Date", Headers::get_date_formatted());
+    if (should_close_connection) {
+        response.headers.set("Connection", "close");
+    } else {
+        response.headers.set("Connection", "keep-alive");
+    }
+
     // Return the response
-    return response.to_buffer();
+    return ResourceHandlerResult{ response.to_buffer(), should_close_connection };
 }

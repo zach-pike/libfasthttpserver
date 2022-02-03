@@ -11,10 +11,15 @@
 
 class ResourceHandler {
     public:
+        struct ResourceHandlerResult {
+            buffer_t render;
+            bool should_close_connection;
+        };
+
         void addResource(std::shared_ptr<Resource> resource);
 
         // Returns the rendered data for the request
-        buffer_t handleRequest(Request& request);
+        ResourceHandlerResult handleRequest(Request& request);
 
     private:
         std::map<std::string, std::shared_ptr<Resource>> resources;

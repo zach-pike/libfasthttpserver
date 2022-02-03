@@ -11,6 +11,7 @@ namespace HTTP {
     public:
         void set(std::string key, std::string value);
         std::string get(std::string key) const;
+        bool has(std::string key) const;
 
         std::string to_string();
 

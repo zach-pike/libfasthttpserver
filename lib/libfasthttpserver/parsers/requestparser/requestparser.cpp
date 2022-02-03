@@ -26,14 +26,14 @@ std::vector<std::string> split_string_by_delim(std::string haystack, std::string
 
 
 // RequestParser parse request method
-Request Parsers::RequestParser::parse_request(buffer_t request) {
+Request Parsers::RequestParser::parse_request(std::string request) {
     // Parse request line
     std::stringstream reqline;
 
-    size_t reqlineEnd = std::string{(char*)request.data(), request.size()}.find("\r\n");
+    size_t reqlineEnd = request.find("\r\n");
 
     // holy fuck
-    reqline << std::string{(char*)request.data(), reqlineEnd};
+    reqline << request.substr(0, reqlineEnd);
     
     std::string method;
     std::string path;
@@ -44,10 +44,7 @@ Request Parsers::RequestParser::parse_request(buffer_t request) {
 
     // Parse the headers
     // We will split the headers into lines
-    size_t headers_begin = reqlineEnd + 2;
-    size_t headers_end = std::string{ request.begin(), request.end() }.find("\r\n\r\n");
-
-    std::string headers_str = std::string{ request.begin(), request.end() }.substr(headers_begin, headers_end - headers_begin);
+    std::string headers_str = request.substr(reqlineEnd + 2);
 
     HTTP::Headers reqheaders;
 

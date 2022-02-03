@@ -1,6 +1,6 @@
 OBJECTS = $(patsubst %.cpp,%.o, $(shell find lib/libfasthttpserver/ -name *.cpp))
 CC = g++
-CFLAGS = -I./lib/ -I./lib/libfasthttpserver -fPIC -c
+CFLAGS = -I./lib/ -I./lib/libfasthttpserver -fPIC -std=c++17 -c
 LDFLAGS =
 
 LIB_NAME = libfasthttpserver

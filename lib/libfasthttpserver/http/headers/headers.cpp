@@ -38,3 +38,8 @@ std::string HTTP::Headers::get_date_formatted() {
 
     return std::string{ buffer, buffer + length };
 }
+
+// Headers has method
+bool HTTP::Headers::has(std::string key) const {
+    return headers.find(key) != headers.end();
+}

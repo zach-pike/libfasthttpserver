@@ -10,6 +10,6 @@ namespace Parsers {
     class RequestParser {
     public:
 
-        static Request parse_request(buffer_t request);
+        static Request parse_request(std::string request);
     };
 }

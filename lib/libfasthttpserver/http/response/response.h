@@ -22,6 +22,9 @@ public:
     std::string getStatusMessage();
     buffer_t getBody();
 
+    void send(std::string str, std::string type);
+    void send(buffer_t buffer, std::string type);
+
     buffer_t to_buffer();
 
     static Response GetStaticResponse(int code, std::string message, std::string body);

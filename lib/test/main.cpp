@@ -1,5 +1,6 @@
 #include <libfasthttpserver/server/server.h>
 #include <libfasthttpserver/resource/getresource.h>
+#include <libfasthttpserver/resource/postresource.h>
 
 #include <string>
 #include <iostream>
@@ -25,12 +26,31 @@ class HelloWorldResource : public GetResource {
         }
 };
 
+class MyPostResource : public PostResource {
+    private:
+        int counter = 0;
+
+    public:
+        void render(const Request& request, Response& response) {
+            std::string body = std::string(request.body.begin(), request.body.end());
+            body.append(std::to_string(counter));
+            response.send(request.body, "text/plain");
+        }
+
+        std::string getPath() const {
+            return "/post";
+        }
+};
+
+
 int main() {
     HTTPServer server(8080);
 
     auto resource = std::make_shared<HelloWorldResource>();
+    auto post_resource = std::make_shared<MyPostResource>();
 
     server.resourceHandler.addResource(resource);
+    server.resourceHandler.addResource(post_resource);
 
     server.start();
 

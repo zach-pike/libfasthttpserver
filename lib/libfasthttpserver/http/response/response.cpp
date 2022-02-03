@@ -40,9 +40,6 @@ buffer_t Response::getBody() {
     return this->body;
 }
 
-
-
-// Response::Get405Response
 Response Response::GetStaticResponse(int code, std::string message, std::string body) {
     HTTP::Headers headers;
     headers.set("Content-Type", "text/html");
@@ -52,6 +49,11 @@ Response Response::GetStaticResponse(int code, std::string message, std::string 
 
     response.setBody(buffer_t(body.begin(), body.end()));
     response.headers.set("Content-Length", std::to_string(body.size()));
+
+    if (code > 399) {
+        response.headers.set("Connection", "close");
+    }
+
     return response;
 }
 
@@ -59,4 +61,18 @@ Response Response::GetStaticResponse(int code, std::string message, std::string 
 buffer_t Response::to_buffer() {
     HTTP::ResponseLine response_line("HTTP/1.1", std::to_string(this->status_code), this->status_message);
     return HTTP::ResponseConstructor::construct_response(response_line, this->headers, this->body);
+}
+
+// Response::send method
+void Response::send(std::string str, std::string type) {
+    this->headers.set("Content-Type", type);
+    this->headers.set("Content-Length", std::to_string(str.size()));
+    this->setBody(buffer_t(str.begin(), str.end()));
+}
+
+// Response::send method
+void Response::send(buffer_t buffer, std::string type) {
+    this->headers.set("Content-Type", type);
+    this->headers.set("Content-Length", std::to_string(buffer.size()));
+    this->setBody(buffer);
 }
